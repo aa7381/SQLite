@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class HelperDB extends SQLiteOpenHelper
 {
     private static final String DATABASE_NAME = "dbexam.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
     String strCreate , strDelete;
 
     public HelperDB (Context context) {

@@ -9,6 +9,6 @@ public class Worker
     public static final String LAST_NAME= "LastName";
     public static final String PHONE_NUMBER= "Phone";
     public static final String ID= "Id";
-    public static final String THE_COMPANY_HE_WORKS_FOR= "Company Works";
+    public static final String THE_COMPANY_HE_WORKS_FOR= "Company_Works";
 
 }
