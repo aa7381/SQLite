@@ -16,12 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class parkfood_activity extends AppCompatActivity {
 
-
     EditText etCompanyId,etCompanyName , etMainPhone, etSecondaryPhone;
-
     Button btnInsert ,btnBack;
-
-
     SQLiteDatabase db;
     HelperDB hlp;
 
@@ -40,7 +36,6 @@ public class parkfood_activity extends AppCompatActivity {
         btnInsert = findViewById(R.id.btnInsert);
         btnBack = findViewById(R.id.back_btn);
     }
-
     public void onClick2(View v) {
         db = hlp.getWritableDatabase();
         if (etCompanyId.getText().toString().isEmpty() || etCompanyName.getText().toString().isEmpty() || etMainPhone.getText().toString().isEmpty() || etSecondaryPhone.getText().toString().isEmpty() ) {
@@ -52,7 +47,6 @@ public class parkfood_activity extends AppCompatActivity {
             values.put(ParkFood.MAIN_PHONE, etMainPhone.getText().toString());
             values.put(ParkFood.SECONDARY_PHONE, etSecondaryPhone.getText().toString());
 
-
             db.insert(ParkFood.TABLE_PARKFOOD, null, values);
             db.close();
 
@@ -60,10 +54,8 @@ public class parkfood_activity extends AppCompatActivity {
             etCompanyName.setText("");
             etMainPhone.setText("");
             etSecondaryPhone.setText("");
-
         }
     }
-
     public void back (View view)
     {
         finish();
