@@ -8,11 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class parkfood_activity extends AppCompatActivity {
 
@@ -28,10 +24,10 @@ public class parkfood_activity extends AppCompatActivity {
 
         hlp = new HelperDB(this);
 
-        etCompanyId = findViewById(R.id.etCompanyId);
-        etCompanyName = findViewById(R.id.etCompanyName);
-        etMainPhone = findViewById(R.id.etMainPhone);
-        etSecondaryPhone = findViewById(R.id.etSecondaryPhone);
+        etCompanyId = findViewById(R.id.etStartermeal);
+        etCompanyName = findViewById(R.id.etmainmeal);
+        etMainPhone = findViewById(R.id.etsidemeal);
+        etSecondaryPhone = findViewById(R.id.etdessert);
 
         btnInsert = findViewById(R.id.btnInsert);
         btnBack = findViewById(R.id.back_btn);

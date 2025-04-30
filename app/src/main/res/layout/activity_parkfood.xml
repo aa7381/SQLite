@@ -6,7 +6,7 @@
 
     <!-- Company ID -->
     <EditText
-        android:id="@+id/etCompanyId"
+        android:id="@+id/etStartermeal"
         android:hint="Company ID"
         android:inputType="number"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
 
     <!-- Company Name -->
     <EditText
-        android:id="@+id/etCompanyName"
+        android:id="@+id/etmainmeal"
         android:hint="Company Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -31,7 +31,7 @@
 
     <!-- Main Phone -->
     <EditText
-        android:id="@+id/etMainPhone"
+        android:id="@+id/etsidemeal"
         android:hint="Main Phone"
         android:inputType="phone"
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
 
     <!-- Secondary Phone -->
     <EditText
-        android:id="@+id/etSecondaryPhone"
+        android:id="@+id/etdessert"
         android:hint="Secondary Phone"
         android:inputType="phone"
         android:layout_width="match_parent"
