@@ -196,6 +196,8 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             int keyToDelete = keysList.get(count2);
             db.delete(Worker.TABLE_WORKER, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
+            db.delete(Meal.TABLE_MEAL, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
+            db.delete(Order.TABLE_ORDER, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
             db.close();
 
 
@@ -217,6 +219,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
             db = hlp.getWritableDatabase();
             int keyToDelete = keysList.get(count2);
             db.delete(Order.TABLE_ORDER, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
+            db.delete(Meal.TABLE_MEAL, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
             db.close();
 
 
@@ -228,6 +231,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             int keyToDelete = keysList.get(count2);
             db.delete(Meal.TABLE_MEAL, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
+            db.delete(Order.TABLE_ORDER, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
             db.close();
 
 
