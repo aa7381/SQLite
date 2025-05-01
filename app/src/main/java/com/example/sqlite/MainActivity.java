@@ -3,6 +3,8 @@ package com.example.sqlite;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -63,6 +65,33 @@ public void workerclick (View view)
         Intent si = new Intent(this, displaying_tables.class);
         startActivity(si);
 
+    }
+
+    /**
+     * create the options menu
+     *
+     * @param menu The options menu
+     * @return return true
+     */
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * Checks the selection in the options menu
+     *
+     * @param menu The selected menu item.
+     * @return return true
+     */
+    public boolean onOptionsItemSelected(MenuItem menu) {
+        String num1 = menu.getTitle().toString();
+        if (num1.equals("credits"))
+        {
+            Intent si = new Intent(this,credits_menu.class);
+            startActivity(si);
+        }
+        return super.onOptionsItemSelected(menu);
     }
 
 }

@@ -1,9 +1,15 @@
 package com.example.sqlite;
 
+import static com.example.sqlite.Worker.KEY_ID;
+
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class displaying_tables extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class displaying_tables extends AppCompatActivity implements AdapterView.OnItemSelectedListener ,View.OnCreateContextMenuListener,AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener  {
 
     SQLiteDatabase db;
     HelperDB hlp;
@@ -25,8 +31,14 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
     Button back_btn;
     ListView lvrecords;
     Spinner menu, spinner_filter;
+
+
     ArrayList<String> tbl;
+
+    ArrayList<Integer> keysList;
+
     int count = 0;
+    int count2 = 0 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +52,18 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
         menu.setOnItemSelectedListener(this);
         spinner_filter.setOnItemSelectedListener(this);
+        lvrecords.setOnItemClickListener(this);
+        lvrecords.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        lvrecords.setOnItemLongClickListener(this);
 
 
         ArrayAdapter<String> adp = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names);
         menu.setAdapter(adp);
 
-    }
 
+
+
+    }
     //_____________________________________________________________________________________________________________________
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long rowid) {
         if (parent == menu) {
@@ -74,6 +91,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
                 tbl = meal_show(lvrecords, tbl, crsr, hlp, db);
                 ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
                 lvrecords.setAdapter(spinneradp);
+                lvrecords.setOnCreateContextMenuListener(this);
                 spinner_filter.setVisibility(View.GONE);
             }
 
@@ -94,6 +112,8 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
                     tbl = worker_show(lvrecords, tbl, crsr, hlp, db);
                     ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
                     lvrecords.setAdapter(spinneradp);
+                    lvrecords.setOnCreateContextMenuListener(this);
+
 
                 } else if (count == 0 && pos == 1)
                 {
@@ -101,6 +121,8 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
                         tbl = worker_show_sort(lvrecords, tbl, crsr, hlp, db);
                         ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
                         lvrecords.setAdapter(spinneradp);
+                        lvrecords.setOnCreateContextMenuListener(this);
+
                     }
                 }
                 if(count == 1 && pos == 0)
@@ -108,28 +130,90 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
                     tbl = parkfood_show(lvrecords, tbl, crsr, hlp, db);
                     ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
                     lvrecords.setAdapter(spinneradp);
+                    lvrecords.setOnCreateContextMenuListener(this);
                 } else if (count == 1 && pos == 1)
                 {
                     tbl = parkfood_show_sort(lvrecords, tbl, crsr, hlp, db);
                     ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
                     lvrecords.setAdapter(spinneradp);
+                    lvrecords.setOnCreateContextMenuListener(this);
                 }
                 if(count == 3 && pos == 0)
                 {
                     tbl = order_show(lvrecords, tbl, crsr, hlp, db);
                     ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
                     lvrecords.setAdapter(spinneradp);
-
+                    lvrecords.setOnCreateContextMenuListener(this);
 
                 } else if (count == 3 && pos == 1) {
                     tbl = order_show_sort(lvrecords, tbl, crsr, hlp, db);
                     ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
                     lvrecords.setAdapter(spinneradp);
+                    lvrecords.setOnCreateContextMenuListener(this);
 
                 }
             }
 
         }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        menu.add("delete");
+
+    }
+    public boolean onContextItemSelected(MenuItem item) {
+        String oper = item.getTitle().toString();
+
+        if(oper.equals("delete") && count == 0) {
+            hlp = new HelperDB(this);
+            db = hlp.getWritableDatabase();
+
+            int keyToDelete = keysList.get(count2);
+            db.delete(Worker.TABLE_WORKER, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
+            db.close();
+
+            tbl.remove(count2);
+
+        }
+        if(oper.equals("delete") && count == 1)
+        {
+            hlp = new HelperDB(this);
+            db = hlp.getWritableDatabase();
+            int keyToDelete = keysList.get(count2);
+            db.delete(ParkFood.TABLE_PARKFOOD, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
+
+            db.close();
+
+
+        }
+        if(oper.equals("delete") && count == 3)
+        {
+            hlp = new HelperDB(this);
+            db = hlp.getWritableDatabase();
+            int keyToDelete = keysList.get(count2);
+            db.delete(Order.TABLE_ORDER, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
+            db.close();
+
+
+        }
+        if(oper.equals("delete") && count == 2)
+        {
+            hlp = new HelperDB(this);
+            db = hlp.getWritableDatabase();
+
+            int keyToDelete = keysList.get(count2);
+            db.delete(Meal.TABLE_MEAL, KEY_ID + "=?", new String[]{Integer.toString(keyToDelete)});
+            db.close();
+
+
+        }
+        tbl.remove(count2);
+        keysList.remove(count2);
+        ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
+        lvrecords.setAdapter(spinneradp);
+        return super.onContextItemSelected(item);
     }
 
     //__________________________________________________________________________________________________________________________________________________
@@ -143,10 +227,12 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db = hlp.getReadableDatabase();
 
         tbl = new ArrayList<>();
+        keysList = new ArrayList<>();
+
 
         crsr = db.query(Worker.TABLE_WORKER, null, null, null, null, null, null);
 
-        int col1 = crsr.getColumnIndex(Worker.KEY_ID);
+        int col1 = crsr.getColumnIndex(KEY_ID);
         int col2 = crsr.getColumnIndex(Worker.ID);
         int col3 = crsr.getColumnIndex(Worker.NAME);
         int col4 = crsr.getColumnIndex(Worker.CARD_NUMBER);
@@ -166,7 +252,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             String tmp = "key: "+key + "\n\n id: " + id + "\n\n name: " + name + "\n\nlastname: " + last + "\n\n phone_number:  " + phone + "\n\ncompany_name: " + company;
             tbl.add(tmp);
-
+            keysList.add(key);
             crsr.moveToNext();
         }
 
@@ -181,10 +267,11 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db = hlp.getReadableDatabase();
 
         tbl = new ArrayList<>();
+        keysList = new ArrayList<>();
 
         crsr = db.query(Worker.TABLE_WORKER, null, null, null, null, null, Worker.LAST_NAME + " ASC");
 
-        int col1 = crsr.getColumnIndex(Worker.KEY_ID);
+        int col1 = crsr.getColumnIndex(KEY_ID);
         int col2 = crsr.getColumnIndex(Worker.ID);
         int col3 = crsr.getColumnIndex(Worker.NAME);
         int col4 = crsr.getColumnIndex(Worker.CARD_NUMBER);
@@ -204,7 +291,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             String tmp = "key: " + key + "\n\n id: " + id + "\n\n name: " + name + "\n\nlastname: " + last + "\n\n phone_number:  " + phone + "\n\ncompany_name: " + company;
             tbl.add(tmp);
-
+            keysList.add(key);
             crsr.moveToNext();
         }
 
@@ -220,6 +307,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db = hlp.getReadableDatabase();
 
         tbl = new ArrayList<>();
+        keysList = new ArrayList<>();
 
         crsr = db.query(ParkFood.TABLE_PARKFOOD, null, null, null, null, null, null);
 
@@ -239,6 +327,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             String tmp = "key: " + key + "\n\nCompany ID: " + companyId + "\n\nCompany Name: " + companyName + "\n\n Main Phone: " + mainPhone + "\n\n Secondary Phone: " + secondaryPhone;
             tbl.add(tmp);
+            keysList.add(key);
             crsr.moveToNext();
         }
 
@@ -253,6 +342,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db = hlp.getReadableDatabase();
 
         tbl = new ArrayList<>();
+        keysList = new ArrayList<>();
 
 
         crsr = db.query(ParkFood.TABLE_PARKFOOD, null, null, null, null, null, ParkFood.NAME_COMPANY + " ASC");
@@ -273,6 +363,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             String tmp = "key: " + key + "\n\nCompany ID: " + companyId + "\n\nCompany Name: " + companyName + "\n\n Main Phone: " + mainPhone + "\n\n Secondary Phone: " + secondaryPhone;
             tbl.add(tmp);
+            keysList.add(key);
             crsr.moveToNext();
         }
 
@@ -287,6 +378,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db = hlp.getReadableDatabase();
 
         tbl = new ArrayList<>();
+        keysList = new ArrayList<>();
 
         crsr = db.query(Meal.TABLE_MEAL, null, null, null, null, null, null);
 
@@ -306,7 +398,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             String tmp = "key: " + key + "\n\n Starter: " + starter + "\n\n ,Main Meal: " + mainMeal + "\n\n Side Meal: " + sideMeal + "\n\n Dessert: " + dessert;
             tbl.add(tmp);
-
+            keysList.add(key);
             crsr.moveToNext();
         }
 
@@ -321,7 +413,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db = hlp.getReadableDatabase();
 
         tbl = new ArrayList<>();
-
+        keysList = new ArrayList<>();
         crsr = db.query(Order.TABLE_ORDER, null, null, null, null, null, null);
 
         int col1 = crsr.getColumnIndex(Order.KEY_ID);
@@ -342,7 +434,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             String tmp = "key: " + key + "\n\n Date: " + date + "\n\n Time: " + time + "\n\n Employee: " + employee + "\n\n Meal: " + meal + "\n\n Provider Company: " + providerCompany;
             tbl.add(tmp);
-
+            keysList.add(key);
             crsr.moveToNext();
         }
 
@@ -357,7 +449,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db = hlp.getReadableDatabase();
 
         tbl = new ArrayList<>();
-
+        keysList = new ArrayList<>();
         crsr = db.query(Order.TABLE_ORDER, null, null, null, null, null, Order.EMPLOYEE + " ASC");
 
         int col1 = crsr.getColumnIndex(Order.KEY_ID);
@@ -378,7 +470,7 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
             String tmp = "key: " + key + "\n\n Date: " + date + "\n\n Time: " + time + "\n\n Employee: " + employee + "\n\n Meal: " + meal + "\n\n Provider Company: " + providerCompany;
             tbl.add(tmp);
-
+            keysList.add(key);
             crsr.moveToNext();
         }
 
@@ -391,5 +483,49 @@ public void back(View view)
 {
     finish();
 }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+    {
+        count2 = i ;
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        count2 = i ;
+        return false;
+    }
+
+    /**
+     * create the options menu
+     *
+     * @param menu The options menu
+     * @return return true
+     */
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * Checks the selection in the options menu
+     *
+     * @param menu The selected menu item.
+     * @return return true
+     */
+    public boolean onOptionsItemSelected(MenuItem menu) {
+        String num1 = menu.getTitle().toString();
+        if (num1.equals("credits"))
+        {
+            Intent si = new Intent(this,credits_menu.class);
+            startActivity(si);
+        }
+        return super.onOptionsItemSelected(menu);
+    }
+
 }
+
+
 

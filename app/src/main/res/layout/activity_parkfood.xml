@@ -5,12 +5,19 @@
     android:layout_height="match_parent">
 
     <!-- Company ID -->
-    <EditText
-        android:id="@+id/etStartermeal"
-        android:hint="Company ID"
-        android:inputType="number"
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/etCompanyId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Company id "
+        android:inputType="number" />
 
     <Space
         android:layout_width="match_parent"
@@ -18,11 +25,15 @@
         android:layout_weight="1" />
 
     <!-- Company Name -->
+
     <EditText
-        android:id="@+id/etmainmeal"
-        android:hint="Company Name"
+        android:id="@+id/etCompanyName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="company name "
+        android:inputType="text" />
 
     <Space
         android:layout_width="match_parent"
@@ -30,12 +41,15 @@
         android:layout_weight="1" />
 
     <!-- Main Phone -->
+
     <EditText
-        android:id="@+id/etsidemeal"
-        android:hint="Main Phone"
-        android:inputType="phone"
+        android:id="@+id/etMainPhone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="main phone "
+        android:inputType="number" />
 
     <Space
         android:layout_width="match_parent"
@@ -43,12 +57,15 @@
         android:layout_weight="1" />
 
     <!-- Secondary Phone -->
+
     <EditText
-        android:id="@+id/etdessert"
-        android:hint="Secondary Phone"
-        android:inputType="phone"
+        android:id="@+id/etSecondaryPhone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="second phone "
+        android:inputType="number" />
 
     <Space
         android:layout_width="match_parent"
