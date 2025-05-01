@@ -233,8 +233,12 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
 
         }
-        tbl.remove(count2);
-        keysList.remove(count2);
+
+        if (count2 >= 0 && count2 < tbl.size() && count2 < keysList.size()) {
+            tbl.remove(count2);
+            keysList.remove(count2);
+        }
+
         ArrayAdapter<String> spinneradp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tbl);
         lvrecords.setAdapter(spinneradp);
         return super.onContextItemSelected(item);
