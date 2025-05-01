@@ -64,6 +64,16 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
 
     }
+
+    /**
+     * Handles item selection events for the spinners.
+     *
+     * @param parent   The AdapterView where the selection happened.
+     * @param view     The view within the AdapterView that was clicked.
+     * @param pos      The position of the view in the adapter.
+     * @param rowid    The row id of the item that is selected.
+     */
+
     //_____________________________________________________________________________________________________________________
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long rowid) {
         if (parent == menu) {
@@ -156,6 +166,13 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
 
         }
     }
+    /**
+     * Creates a context menu for the ListView.
+     *
+     * @param menu     The context menu to be built.
+     * @param v        The view for which the context menu is being built.
+     * @param menuInfo Extra information about the item for which the context menu should be shown.
+     */
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
@@ -163,6 +180,13 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         menu.add("delete");
 
     }
+    /**
+     * Handles item selections in the context menu.
+     *
+     * @param item The selected menu item.
+     * @return True if the item was handled, false otherwise.
+     */
+
     public boolean onContextItemSelected(MenuItem item) {
         String oper = item.getTitle().toString();
 
@@ -215,11 +239,29 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         lvrecords.setAdapter(spinneradp);
         return super.onContextItemSelected(item);
     }
+    /**
+     * Handles the event when nothing is selected in the spinner.
+     *
+     * @param parent The AdapterView where the nothing-selected event happened.
+     */
+
 
     //__________________________________________________________________________________________________________________________________________________
     public void onNothingSelected(AdapterView<?> parent) {
         Log.i("SpinDemo", "Nothing selected");
     }
+
+    /**
+     * Displays worker data in the ListView.
+     *
+     * @param lvrecords The ListView to display the data in.
+     * @param tbl       The ArrayList to store the data.
+     * @param crsr      The Cursor to read the data from.
+     * @param hlp       The HelperDB instance.
+     * @param db        The SQLiteDatabase instance.
+     * @return The ArrayList containing the worker data.
+     */
+
     //_________________________________________________________________________________________________________________________________________________
     public  ArrayList worker_show(ListView lvrecords,ArrayList<String> tbl,Cursor crsr,HelperDB hlp,SQLiteDatabase db)
     {
@@ -260,7 +302,16 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db.close();
         return tbl ;
     }
-
+    /**
+     * Displays worker data in the ListView, sorted by last name.
+     *
+     * @param lvrecords The ListView to display the data in.
+     * @param tbl       The ArrayList to store the data.
+     * @param crsr      The Cursor to read the data from.
+     * @param hlp       The HelperDB instance.
+     * @param db        The SQLiteDatabase instance.
+     * @return The ArrayList containing the sorted worker data.
+     */
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
     public ArrayList<String> worker_show_sort(ListView lvrecords, ArrayList<String> tbl, Cursor crsr, HelperDB hlp, SQLiteDatabase db) {
         hlp = new HelperDB(this);
@@ -299,6 +350,16 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db.close();
         return tbl;
     }
+    /**
+     * Displays ParkFood data in the ListView.
+     *
+     * @param lvrecords The ListView to display the data in.
+     * @param tbl       The ArrayList to store the data.
+     * @param crsr      The Cursor to read the data from.
+     * @param hlp       The HelperDB instance.
+     * @param db        The SQLiteDatabase instance.
+     * @return The ArrayList containing the ParkFood data.
+     */
 
 
     //_______________________________________________________________________________________________________________________________________________
@@ -335,8 +396,17 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db.close();
         return tbl;
     }
+    /**
+     * Displays ParkFood data in the ListView, sorted by company name.
+     *
+     * @param lvrecords The ListView to display the data in.
+     * @param tbl       The ArrayList to store the data.
+     * @param crsr      The Cursor to read the data from.
+     * @param hlp       The HelperDB instance.
+     * @param db
+     */
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------------------------------------------------------------
     public ArrayList<String> parkfood_show_sort(ListView lvrecords, ArrayList<String> tbl, Cursor crsr, HelperDB hlp, SQLiteDatabase db) {
         hlp = new HelperDB(this);
         db = hlp.getReadableDatabase();
@@ -371,6 +441,18 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db.close();
         return tbl;
     }
+
+    /**
+     * Displays meal data in the ListView.
+     *
+     * @param lvrecords The ListView to display the data in.
+     * @param tbl       The ArrayList to store the data.
+     * @param crsr      The Cursor to read the data from.
+     * @param hlp       The HelperDB instance.
+     * @param db        The SQLiteDatabase instance.
+     * @return The ArrayList containing the meal data.
+     */
+
     //________________________________________________________________________________________________________
 
     public ArrayList<String> meal_show(ListView lvrecords, ArrayList<String> tbl, Cursor crsr, HelperDB hlp, SQLiteDatabase db) {
@@ -406,6 +488,17 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db.close();
         return tbl;
     }
+    /**
+     * Displays order data in the ListView.
+     *
+     * @param lvrecords The ListView to display the data in.
+     * @param tbl       The ArrayList to store the data.
+     * @param crsr      The Cursor to read the data from.
+     * @param hlp       The HelperDB instance.
+     * @param db        The SQLiteDatabase instance.
+     * @return The ArrayList containing the order data.
+     */
+
     //_____________________________________________________________________________________________________________________________________-
 
     public ArrayList<String> order_show(ListView lvrecords, ArrayList<String> tbl, Cursor crsr, HelperDB hlp, SQLiteDatabase db) {
@@ -443,6 +536,16 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         return tbl;
     }
 
+    /**
+     * Displays order data in the ListView, sorted by employee name.
+     *
+     * @param lvrecords The ListView to display the data in.
+     * @param tbl       The ArrayList to store the data.
+     * @param crsr      The Cursor to read the data from.
+     * @param hlp       The HelperDB instance.
+     * @param db        The SQLiteDatabase instance.
+     * @return The ArrayList containing the sorted order data.
+     */
 
     public ArrayList<String> order_show_sort(ListView lvrecords, ArrayList<String> tbl, Cursor crsr, HelperDB hlp, SQLiteDatabase db) {
         hlp = new HelperDB(this);
@@ -478,8 +581,14 @@ public class displaying_tables extends AppCompatActivity implements AdapterView.
         db.close();
         return tbl;
     }
-//----------------------------------------------------------------------------------------------------------------------------------------------------------
-public void back(View view)
+    //----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Finishes the current activity and returns to the previous one.
+     *
+     * @param view
+     */
+    public void back(View view)
 {
     finish();
 }
