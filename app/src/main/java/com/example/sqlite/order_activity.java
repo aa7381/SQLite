@@ -54,7 +54,10 @@ public class order_activity extends AppCompatActivity {
      */
     public void onClick(View v) {
         db = hlp.getWritableDatabase();
-        if (etdate.getText().toString().isEmpty() || ettime.getText().toString().isEmpty() || etemployee.getText().toString().isEmpty() || etprovcomp.getText().toString().isEmpty()) {
+        if (etdate.getText().toString().isEmpty() || etdate.equals("-") || etdate.equals("-.") || etdate.equals("+") ||
+                etdate.equals("+.") || ettime.getText().toString().isEmpty() || ettime.equals("-") || ettime.equals("-.") ||
+                ettime.equals("+") || ettime.equals("+.") ||  etemployee.getText().toString().isEmpty() || etemployee.equals("-") || etemployee.equals("-.") || etemployee.equals("+") || etemployee.equals("+.") ||
+                etprovcomp.getText().toString().isEmpty() || etprovcomp.equals("-") || etprovcomp.equals("-.") || etprovcomp.equals("+") || etprovcomp.equals("+.")) {
             Toast.makeText(this, "invald input", Toast.LENGTH_SHORT).show();
         } else {
             ContentValues values = new ContentValues();

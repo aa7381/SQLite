@@ -59,7 +59,8 @@ public class meal_activity extends AppCompatActivity {
      */
     public void onClick2(View v) {
         db = hlp.getWritableDatabase();
-        if (etStartermeal.getText().toString().isEmpty() || etmainmeal.getText().toString().isEmpty() || etsidemeal.getText().toString().isEmpty() || etdessert.getText().toString().isEmpty()) {
+        if (etStartermeal.getText().toString().isEmpty() || etStartermeal.equals("-") ||
+                etStartermeal.equals("-.") || etStartermeal.equals("+") || etStartermeal.equals("+.") ||etmainmeal.getText().toString().isEmpty()|| etmainmeal.equals("-") ||   etmainmeal.equals("-.") || etmainmeal.equals("+") || etmainmeal.equals("+.") || etsidemeal.getText().toString().isEmpty() || etsidemeal.equals("-") || etsidemeal.equals("-.") || etsidemeal.equals("+") || etsidemeal.equals("+.") || etdessert.getText().toString().isEmpty() || etdessert.equals("-") || etdessert.equals("-.") || etdessert.equals("+") || etdessert.equals("+.")) {
             Toast.makeText(this, "invald input", Toast.LENGTH_SHORT).show();
         } else {
             ContentValues values = new ContentValues();

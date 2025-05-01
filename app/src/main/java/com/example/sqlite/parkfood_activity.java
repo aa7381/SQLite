@@ -55,7 +55,7 @@ public class parkfood_activity extends AppCompatActivity {
      */
     public void onClick2(View v) {
         db = hlp.getWritableDatabase();
-        if (etCompanyId.getText().toString().isEmpty() || etCompanyName.getText().toString().isEmpty() || etMainPhone.getText().toString().isEmpty() || etSecondaryPhone.getText().toString().isEmpty()) {
+        if (etCompanyId.getText().toString().isEmpty() || etCompanyId.equals("-.") || etCompanyId.equals("+") || etCompanyId.equals("+.") || etCompanyName.getText().toString().isEmpty() ||  etCompanyName.equals("-.") || etCompanyName.equals("+") || etCompanyName.equals("+.") ||  etMainPhone.getText().toString().isEmpty() || etMainPhone.equals("-.") || etSecondaryPhone.getText().toString().isEmpty() || etSecondaryPhone.equals("-.")) {
             Toast.makeText(this, "invald input", Toast.LENGTH_SHORT).show();
         } else {
             ContentValues values = new ContentValues();

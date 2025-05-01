@@ -56,7 +56,7 @@ public class worker_activity extends AppCompatActivity {
      */
     public void onClick(View v) {
         db = hlp.getWritableDatabase();
-        if (etCard.getText().toString().isEmpty() || etName.getText().toString().isEmpty() || etLastName.getText().toString().isEmpty() || etPhone.getText().toString().isEmpty() || etId.getText().toString().isEmpty() || etCompany.getText().toString().isEmpty()) {
+        if (etCard.getText().toString().isEmpty() || etCard.equals("-") || etCard.equals("-.") || etCard.equals("+") || etCard.equals("+.") || etName.getText().toString().isEmpty() ||  etName.equals("-.") || etName.equals("+") || etName.equals("+.") || etLastName.getText().toString().isEmpty() || etLastName.equals("-") || etLastName.equals("-.") || etPhone.getText().toString().isEmpty() || etPhone.equals("-.") || etId.getText().toString().isEmpty() || etId.equals("-") || etCompany.getText().toString().isEmpty() || etCompany.equals("-.")) {
             Toast.makeText(this, "invald input", Toast.LENGTH_SHORT).show();
         } else {
             ContentValues values = new ContentValues();
